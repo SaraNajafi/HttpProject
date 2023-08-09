@@ -1,0 +1,42 @@
+
+GET  http://localhost:3000/about
+
+###
+
+Post http://localhost:3000/contact
+Content-Type: application/json
+
+{
+    "firstname": "Samaneh",
+    "lastname": "Najafi"
+}
+
+###
+GET  http://localhost:3000/search?name=felafel
+
+
+###
+POST http://localhost:3000/plan
+Content-Type: application/json
+Authorization: bf64ad46-86a6-4bf5-9dab-35cd61783fdc
+
+{
+    "title": "More Resturants",
+    "description": "Budget for building resturants"
+    
+}
+
+###
+GET http://localhost:3000/plan/2
+
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username":"Sara",
+    "password":"sara"
+}
+
+
