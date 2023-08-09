@@ -1,5 +1,5 @@
 import { Router, Response } from "express";
-import { ZodError } from "zod";
+import { z, ZodError } from "zod";
 import { handleExpress } from "../../utility/handle-express";
 import { HttpError } from "../../utility/my-error";
 import { isNonEmptyString } from "../../utility/non-empty-string";
@@ -78,13 +78,14 @@ app.post('/', (req, res, next)=>{
 
 
 app.get('/:id', (req, res, next)=>{
-    const planID = parseInt(req.params.id);
-    if(isNaN(planID)){
-        res.status(400).send({ message:"ID should be a number"});
-        return;
+    try{
+    const id = z.coerce.number().parse(req.params.id);
+    handleExpress(res, ()=>getPlanById(id));
+    }catch(e){
+        if(e instanceof ZodError){
+            res.status(400).send({ message:e.errors});
+        }
     }
-
-    handleExpress(res, ()=>getPlanById(planID));
     
 
 });
